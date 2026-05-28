@@ -1,18 +1,26 @@
-\chapter{Introduction}
+\chapter{Introduction and Motivation}
 \label{ch:intro}
 
-語法大幅度修改(!?), 改成xelatex去編譯. 現在中文內容可以直接使用\textbf{粗體}跟\textit{斜體}了. 
+近年來，人工智慧(AI)與雲端數據中心的蓬勃發展，使得世界各地對高效能運算(High-Performance Computing, HPC)的算力需求迎來爆炸式的成長。
+然而，傳統數據中心與晶片內部的電互連架構(Electrical Interconnects)受限於金屬銅線歐姆損耗造成的焦耳熱(Joule heating)、
+信號衰減以及頻寬瓶頸，已面臨嚴重的能源損耗與傳輸極限。為了突破這個物理限制，矽光子(Silicon Photonics)技術因具備高頻寬、
+低延遲及低功號的光波傳輸特性，或許能成為未來取代傳統電子傳輸、實現高效能晶片資訊傳遞的關鍵技術。
+同時，隨著矽光子元件架構走向高密度整合，它龐大的計算參數常常面臨維度爆炸的挑戰，而近年來量子運算(Quantum Computing)技術的
+崛起，則帶給這類高維度計算難題前所未有的全新轉機。
 
-\section{測試0}
+在矽光積體電路中，為了追求更高效能並實現更密集的光路排列，透過縮小晶片尺寸來提升整合度已經成為未來趨勢了，
+這使得緊湊型(Compact)光學元件的重要性也日益增加。在複雜的晶片佈局中，光訊號傳輸無法只依靠直線波導，
+還必須依賴彎曲波導(Bend Waveguide)來引導光路轉彎，並利用交叉波導(Waveguide Crossing)在單一層平面上實現光路的高速公路，
+可以避免不必要且繁瑣的繞線。然而，隨著元件尺寸縮小至微米，甚至奈米等級，彎曲波導容易因光場外偏而產生嚴重的損耗與模態串擾;
+交叉波導則是面臨著多模態光場散射所導致的插入損耗與通道間的信號串擾(Crosstalk)。因此如何在極小尺寸下設計出具有低損耗與
+高模態光場純度的光子元件，成為目前矽光子晶片設計的瓶頸。
 
-\subsection{測試1}
+目前，在學術界與產業界設計矽光子元件時，主要依賴兩大類方法，第一種方法是基於傳統光學經驗與解析模型的\textbf{啟發式試誤法}(Heuristic
+ trial-and-error Approach)。雖然此方法可以有效設計出標準光學元件，但在面對較為複雜的光學結構時，其性能往往受限且難以預測。
+第二種方法則是使用當前最主流的\textbf{基於梯度的伴隨變分法}(Adjoint Method)來進行光學結構的拓撲優化(Topology Optimization)。
+此方法只需要進行一次正向電磁模擬(Forward Simulation)與一次伴隨模擬(Adjoint Simulation)即可計算出梯度，
+並在每次迭代中根據梯度來更新結構。然而，這種基於梯度的優化機制本質上非常容易陷入局部最佳解(Local Minima)，
+且優化過程中容易產生許多細小、破碎的分支與孤島結構。這種結構不僅對製程誤差極度敏感，
+更常常因為結構尺寸小於最小製程極限而導致其無法通過微影與蝕刻進行量產，形成了設計與實際製造之間的巨大落差。
 
-還有研究一下overleaf支援的字體清單: https://bit.ly/3MocQG3
-
-目前選擇TW-Kai, 這個字體同時支援繁體與簡體中文, 有一些特殊字可以直接顯示, 像是之前有人問過的核苷酸.
-
-\subsubsection{測試2}
-
-Video-based surveillance systems have been widely used in places such as plaza, office, factory, hotel, and conference hall for security purposes\cite{collins2000system},\cite{wang2013intelligent}. 
-
-The rest of this paper is organized as follows. Chapter 2 reviews some related work. Chapter 3 introduces our system architecture. Chapter 4 explains the details of our pairing algorithm. Performance evaluation results are in Chapter 5. Conclusions are in Chapter 6.
+在過去文獻中，研究人員曾經使用過因子分解機結合量子退火來優化光學薄膜結構與熱發射器等相關元件，因此我們聯想到可以利用因子分解機的

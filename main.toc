@@ -11,17 +11,14 @@
 \contentsline {chapter}{目錄}{v}{}%
 \contentsline {chapter}{圖目錄\vspace {0em}}{vi}{}%
 \contentsline {chapter}{表目錄\vspace {0em}}{vii}{}%
-\contentsline {chapter}{\numberline {1}Introduction}{1}{}%
-\contentsline {section}{\numberline {1.1}測試0}{1}{}%
-\contentsline {subsection}{\numberline {1.1.1}測試1}{1}{}%
-\contentsline {subsubsection}{\numberline {1.1.1.1}測試2}{1}{}%
-\contentsline {chapter}{\numberline {2}Related Work}{2}{}%
-\contentsline {chapter}{\numberline {3}System Model}{3}{}%
-\contentsline {chapter}{\numberline {4}Data Fusion Algorithm}{5}{}%
-\contentsline {section}{\numberline {4.1}Data Preprocessing}{5}{}%
-\contentsline {subsection}{\numberline {4.1.1}2D LiDAR Data}{6}{}%
-\contentsline {chapter}{\numberline {5}Conclusions}{7}{}%
-\contentsline {chapter}{\numberline {6}Performance Evaluation}{8}{}%
-\contentsline {chapter}{參考文獻}{9}{}%
-\contentsline {chapter}{Appendix 附錄}{11}{}%
+\contentsline {chapter}{\numberline {1}Introduction and Motivation}{1}{}%
+\contentsline {chapter}{\numberline {2}Related Work}{3}{}%
+\contentsline {chapter}{\numberline {3}System Model}{4}{}%
+\contentsline {chapter}{\numberline {4}Data Fusion Algorithm}{6}{}%
+\contentsline {section}{\numberline {4.1}Data Preprocessing}{6}{}%
+\contentsline {subsection}{\numberline {4.1.1}2D LiDAR Data}{7}{}%
+\contentsline {chapter}{\numberline {5}Conclusions}{8}{}%
+\contentsline {chapter}{\numberline {6}Performance Evaluation}{9}{}%
+\contentsline {chapter}{參考文獻}{10}{}%
+\contentsline {chapter}{\numberline {7}Appendix 附錄}{12}{}%
 \contentsfinish 
