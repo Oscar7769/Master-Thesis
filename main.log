@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2026.5.26)  29 MAY 2026 05:09
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2026.5.26)  29 MAY 2026 17:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -210,22 +210,22 @@ File: ctex.cfg 2021/12/12 v2.5.8 Configuration file (CTEX)
 
 Package fontspec Info: Font family 'TW-Kai.ttf(0)' created for font
 (fontspec)             'TW-Kai.ttf' with options
-(fontspec)             [Script={CJK},AutoFakeBold={4},AutoFakeSlant={0.2}].
+(fontspec)             [Script={CJK},Path={./fonts/},AutoFakeBold={4},AutoFakeSlant={0.2}].
 (fontspec)              
 (fontspec)              This font family consists of the following NFSS
 (fontspec)             series/shapes:
 (fontspec)              
 (fontspec)             - 'normal' (m/n) with NFSS spec.:
-(fontspec)             <->"[TW-Kai.ttf]/OT:script=hani;language=dflt;"
+(fontspec)             <->"[./fonts/TW-Kai.ttf]/OT:script=hani;language=dflt;"
 (fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
 (fontspec)             - 'bold' (b/n) with NFSS spec.:
-(fontspec)             <->"[TW-Kai.ttf]/OT:script=hani;language=dflt;embolden=4;"
+(fontspec)             <->"[./fonts/TW-Kai.ttf]/OT:script=hani;language=dflt;embolden=4;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 (fontspec)             - 'italic' (m/it) with NFSS spec.:
-(fontspec)             <->"[TW-Kai.ttf]/OT:script=hani;language=dflt;slant=0.2;"
+(fontspec)             <->"[./fonts/TW-Kai.ttf]/OT:script=hani;language=dflt;slant=0.2;"
 (fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.: 
 (fontspec)             - 'bold italic' (b/it) with NFSS spec.:
-(fontspec)             <->"[TW-Kai.ttf]/OT:script=hani;language=dflt;embolden=4;slant=0.2;"
+(fontspec)             <->"[./fonts/TW-Kai.ttf]/OT:script=hani;language=dflt;embolden=4;slant=0.2;"
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
  (/usr/share/texmf/tex/latex/CJK/CJKnumb.sty
@@ -819,14 +819,19 @@ File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [2] (./Sections/2.Relatedwork.tex
+ [2]
+File: covers/logo2.pdf Graphic file (type pdf)
+<use covers/logo2.pdf>
+File: covers/logo2.pdf Graphic file (type pdf)
+<use covers/logo2.pdf>
+ [3] (./Sections/2.Relatedwork.tex
 Chapter 2.
 )
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [3
+ [4
 
 ] (./Sections/3.Theory.tex
 Chapter 3.
@@ -837,14 +842,14 @@ File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [4
+ [5
 
 ] (./Sections/4.Method_Result.tex
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [5]
+ [6]
 Chapter 4.
 File: img/1.system_architecture.pdf Graphic file (type pdf)
 <use img/1.system_architecture.pdf>
@@ -855,21 +860,21 @@ File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [6
+ [7
 
 ]
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [7] (./Sections/5.Conclusion.tex
+ [8] (./Sections/5.Conclusion.tex
 Chapter 5.
 )
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [8
+ [9
 
 ] (./Sections/6.Future_Work.tex
 Chapter 6.
@@ -884,21 +889,21 @@ File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [9
+ [10
 
 ] (./main.bbl
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [10
+ [11
 
 ]) (./Sections/appendix.tex
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [11]
+ [12]
 Chapter 7.
 
 Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
@@ -909,21 +914,21 @@ File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
-[12
+[13
 
 ])
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
 File: covers/logo2.pdf Graphic file (type pdf)
 <use covers/logo2.pdf>
- [13] (./main.aux) ) 
+ [14] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 16288 strings out of 477728
- 356267 string characters out of 5842238
- 683683 words of memory out of 5000000
- 36540 multiletter control sequences out of 15000+600000
+ 16319 strings out of 477728
+ 358421 string characters out of 5842238
+ 685795 words of memory out of 5000000
+ 36571 multiletter control sequences out of 15000+600000
  480331 words of font info for 105 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
  78i,13n,80p,1436b,625s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.pdf (23 pages).
+Output written on main.pdf (24 pages).
