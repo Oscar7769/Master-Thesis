@@ -13,12 +13,15 @@
 \contentsline {chapter}{表目錄\vspace {0em}}{vii}{}%
 \contentsline {chapter}{\numberline {1}Introduction and Motivation}{1}{}%
 \contentsline {chapter}{\numberline {2}Related Work}{4}{}%
-\contentsline {chapter}{\numberline {3}System Model}{5}{}%
-\contentsline {chapter}{\numberline {4}Data Fusion Algorithm}{7}{}%
-\contentsline {section}{\numberline {4.1}Data Preprocessing}{7}{}%
-\contentsline {subsection}{\numberline {4.1.1}2D LiDAR Data}{8}{}%
-\contentsline {chapter}{\numberline {5}Conclusions}{9}{}%
-\contentsline {chapter}{\numberline {6}Performance Evaluation}{10}{}%
-\contentsline {chapter}{參考文獻}{11}{}%
-\contentsline {chapter}{\numberline {7}Appendix 附錄}{13}{}%
+\contentsline {section}{\numberline {2.1}Early Works on Inverse Design of Photonic Devices}{4}{}%
+\contentsline {section}{\numberline {2.2}FMQA/SA for Photonic Inverse Design}{7}{}%
+\contentsline {section}{\numberline {2.3}Low-dimensional Encoding-Based Methods}{9}{}%
+\contentsline {chapter}{\numberline {3}System Model}{11}{}%
+\contentsline {chapter}{\numberline {4}Data Fusion Algorithm}{13}{}%
+\contentsline {section}{\numberline {4.1}Data Preprocessing}{13}{}%
+\contentsline {subsection}{\numberline {4.1.1}2D LiDAR Data}{14}{}%
+\contentsline {chapter}{\numberline {5}Conclusions}{15}{}%
+\contentsline {chapter}{\numberline {6}Performance Evaluation}{16}{}%
+\contentsline {chapter}{參考文獻}{17}{}%
+\contentsline {chapter}{\numberline {7}Appendix 附錄}{19}{}%
 \contentsfinish 

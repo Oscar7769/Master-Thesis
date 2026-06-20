@@ -1,7 +1,148 @@
 \chapter{Related Work}
 \label{ch:relatedwork}
-通常第二段就是寫相關的參考文獻, 只有cite到的文章才會出現編號並且出現在最後面. 舉例來說, 如果在ref.bib裡放了10篇論文, 可是內文只有cite其中五篇, 編譯出來的結果就只會顯示這五篇. Ref有很多種風格寫法, 本篇論文是採用bibliographystyle\{IEEEtran\}, 
-overleaf上有其他style語法, 可以參考: \\
-https://www.overleaf.com/learn/latex/Bibtex\_bibliography\_styles
+Related Work 的部分，我主要會分三個部分說明，
+第一個部分是說明傳統早期反向設計矽光子元件的各種方法以及其說明(TABLE 1)，
+第二個部分是探討因子分解機結合退火式演算法在光學設計上的應用以及其限制(TABLE 2)，
+第三個部分是介紹基於生成模型與幾何編碼的降維技術(TABLE 3)，並說明與本研究的關聯。
 
-This is related work. The PID issue has been widely studied in the field of computer vision and IoT by using various devices. In the field of computer vision, camera is the most popular device. Face recognition technologies are surveyed in \cite{zhao2003face}. Reference \cite{parkhi2015deep} focuses on how to collect a very large training dataset and build a very deep CNN model for face recognition, but training process is extremely computationally expensive. A hybrid RFID and computer vision system for localization and tracking of RFID tags is proposed in \cite{goller2014fusing}. Reference \cite{isasi2010location} presents a solution which combines RFID with object tracking through cameras. Reference \cite{germa2010vision} presents a fusion system consisting of an RFID reader and a camera crew on a mobile robot platform to track people. These works \cite{goller2014fusing},\cite{isasi2010location},\cite{germa2010vision} fuse data from camera and RFID, but their accuracy highly depends on the density of RFID antennas. Thus, they are not suitable for longer range PID. Reference \cite{munaro2014fast} proposes a fast multi-people tracking algorithm for service robots through RGB-D camera. In \cite{spinello2011people}, people detection is realized by dense depth data, called Histogram of Oriented Depths (HOD). 
+\section{Early Works on Inverse Design of Photonic Devices}
+在過去二十年，矽光子元件的設計已從傳統的基於規則與經驗的設計方法，
+逐漸轉向自動化與最佳化的設計流程。反向設計(Inverse Design)的核心目標在於突破傳統幾何參數的限制，
+並且尋找滿足特定光學限制條件下的最佳光學結構或是最佳介電質分布。\
+
+首次將拓撲優化(Topology Optimization, TO)方法應用於奈米光學結構設計，是在[1]\textbf{西元1999年}由Cox與Dobson等人
+首次將數學模型引入二維光子晶體能隙的最大化設計中，是在光學領域將幾何微調轉向系統性材料優化的先驅。
+接著，[2]\textbf{西元2004年}Borel等人將拓撲優化理論成功應用於半導體製程，在SOI基板上實現了低損耗的Z型光子晶體波導，驗證了演算法
+生成結構的物理可行性以及拓撲優化對製程誤差的容忍度。[3]\textbf{西元2011年}Jensen與Sigmund確定了基於密度(Density-based)拓撲
+優化的標準數學模型，引入了材料插值法則以及伴隨敏感度分析(Adjoint Sensitivity Analysis)，成為了後來基於梯度反向設計的核心原理。
+[4]\textbf{西元2013年}由柏克萊團隊的Lalau-Keraly等人證明了在電磁學最佳化中，只需要一次正向模擬與一次反向伴隨模擬就可以
+算出設計空間中數萬個像素的梯度，此研究帶給後續大規模、高複雜度的光學元件設計極大的貢獻。
+\textbf{西元2015年}[5]史丹佛團隊Piggott等人與[6]猶他大學團隊Shen等人，分別展示了反向設計能夠在極小的面積內實現高效能的元件的能力，
+打破了人們對於傳統光學物理直覺的限制。
+[7]\textbf{西元2016年}Frellsen等人針對模態分波多工器(MDM)的研究，凸顯了精準控制邊界條件與模態串擾的重要性。
+由於理論上最佳化的光學結構與製程規範之間存在一定的落差，因此在[8]\textbf{西元2017年}Piggott等人提出將微影製程限制
+直接轉為數學幾何約束，納入優化目標，以確保生成的結構具備實際可製造性。
+[9]\textbf{西元2018年}Molesky等人的綜述論文則對反向設計優化光學系統的研究現況進行了系統性的總結，將這些方法視為目前矽光子元件設計的基礎。
+[10]\textbf{西元2021年}由喬治亞理工學院與 MIT 等團隊聯合發表，建立了密度拓撲優化框架，利用可微分形態學變換(DMT)，
+將工業級設計規則檢查(DRC)整合至優化過程中。
+
+\begin{table}[H] 
+\centering
+\begin{tabularx}{\textwidth}{l | >{\linespread{1.0}\selectfont\arraybackslash}X}
+\hline \rule{0pt}{1.8em}1999 & Cox/Dobson used gradient ascent in photonic crystals, laying the mathematical foundation for band gap optimization.[1] \\[1.5em]
+
+2004 & Borel/DTU first paired topology optimization with SOI fabrication, proving complex geometries are manufacturable.[2] \\[1.5em]
+
+2011 & Jensen/Sigmund (DTU) established the standard framework for density-based topology optimization and adjoint analysis.[3] \\[1.5em]
+
+2013 & Lalau-Keraly/UC Berkeley paired adjoint and level-set methods, breaking bottlenecks for large-scale electromagnetic design.[4] \\[1.5em]
+
+2015 & Stanford's Piggott used inverse design for an ultra-compact demultiplexer, breaking physical intuition[5], Utah's Shen debuted DBS discrete optimization for a tiny PBS, launching the pixelated design school.[6] \\[1.5em]
+
+2016 & Frellsen/DTU applied topology optimization to mode-division multiplexing, overcoming high-order mode crosstalk bottlenecks.[7] \\[1.5em]
+
+2017 & Piggott/Stanford embedded lithographic constraints into the algorithm, enabling direct interface with commercial foundries.[8] \\[1.5em]
+
+2018 & Molesky/Stanford joint team published an authoritative review outlining the landscape of nanophotonic inverse design.[9] \\[1.5em]
+
+2021 & Hammond/Georgia Tech/MIT used differentiable transformations to embed foundry DRC rules, bridging theory and mass production.[10] \\ % 💡 關鍵修正 1：這裡一定要加 \\ 結尾，底部的 \hline 才會出現！
+\hline
+\end{tabularx}
+\vspace{-1.8em} 
+\begin{flushleft}
+\noindent{\footnotesize \textcolor{blue}{\textsf{TABLE 1 \quad Early Works on Inverse Design of Photonic Devices}}}
+\end{flushleft}
+\label{tab:Early Works on Inverse Design of Photonic Devices}
+\end{table}
+\clearpage
+
+\section{FMQA/SA for Photonic Inverse Design}
+為了克服連續優化方法中非凸(Non-convex)邊界投影導致的數值不穩定性，學術界逐漸將研究延伸至「離散組合優化(Combinatorial Optimization)」。
+這種方法必須將光學元件或結構參數嵌入(Embedding)為離散化的二元陣列(Binary Array)，並藉由基於退火型演算法進行全域搜尋，可以有效解決光學設計中容易
+陷入局部最小值(Local Minima)的瓶頸。\
+[11]\textbf{西元1983年}Kirkpatrick等人提出「模擬退火(Simulated Annealing, SA)演算法」，此演算法將熱力學中的退火概念轉換為數學運算，透過隨機性選擇與
+允許有限機率的能量爬升的機制，可以有效突破局部最佳解的限制，成為了組合優化理論的根源，也奠定了後續所有啟發式全域搜尋演算法的物理基礎。
+[12]\textbf{西元1998年}Kadowaki與Nishimori提出了量子退火(Quantum Annealing, QA)理論，
+奠定了透過全域搜尋Ising/QUBO能量基態的物理基礎，透過量子穿隧效應或機率性能量爬升，可以有效突破複雜設計空間的局部最小值瓶頸。
+[13]\textbf{西元2010年}Rendle將「因子分解機(Factorization Machines, FM)」引入機器學習領域，FM的數學表達式可以直接映射為QUBO模型的二次多項式，
+可以將原本高維度的複雜組合問題轉化為QUBO模型，提供了直接利用硬體進行優化的可能。
+[14]\textbf{西元2015年}Shen, Menon等人在不需要量子電腦的情形下，利用「直接二元搜尋法(Direct Binary Search, DBS)」證明二元像素化在光學元件設計上的潛力。
+[15]\textbf{西元2020年}Kita,Tamura與東京大學團隊，將因子分解機與D-Wave量子退火硬體結合，提出了FMQA(Factorization Machines Quantum Annealing)架構，
+在超穎材料的設計上證明此方法有效突破人類直覺的效能限制。
+[16]\textbf{西元2022年}Inoue, Noda與京都大學團隊，將FMQA應用於PCSEL的設計，證明了該架構在處理複雜非均勻結構與高維度離散參數時的巨大潛力。
+[17]\textbf{西元2024年}Zhu, Li等人發表的綜述，確立了「代理模型結合退火(Surrogate Model + Annealing)」的混合式框架在複雜物理反向設計領域的可靠性與高效率。
+
+\begin{table}[H] 
+\centering
+\begin{tabularx}{\textwidth}{l | >{\linespread{1.0}\selectfont\arraybackslash}X}
+\hline \rule{0pt}{1.8em}1983 & Kirkpatrick/IBM introduced Simulated Annealing (SA), providing a thermodynamic basis for overcoming local optima.[11] \\[1.5em]
+
+1998 & Kadowaki/Nishimori proved Quantum Annealing (QA) outpaces SA via tunneling, forming the theoretical bedrock for Ising/QUBO hardware.[12] \\[1.5em]
+
+2010 & Rendle introduced Factorization Machines (FM), a key mathematical bridge for mapping complex functions into QUBO matrices.[13] \\[1.5em]
+
+2015 & Stanford's Piggott built an ultra-compact demultiplexer; meanwhile, Utah's Shen debuted DBS optimization to launch the pixelated design school.[14] \\[1.5em]
+
+2020 & Kitai/University of Tokyo team pioneered FMQA, creating a closed-loop ``ML + D-Wave QA'' framework for metamaterial discovery.[15] \\[1.5em]
+
+2022 & Inoue/Kyoto University team applied FMQA to PCSELs, breaking trade-offs in output power and divergence angles.[16] \\[1.5em]
+
+2024 & Zhu/Chemical Reviews published a comprehensive review endorsing the ``surrogate model + annealing'' paradigm for inverse design.[17] \\
+\hline
+\end{tabularx}
+\vspace{-1.8em} 
+\begin{flushleft}
+\noindent{\footnotesize \textcolor{blue}{\textsf{TABLE 2 \quad FMQA/SA for Photonic Inverse Design}}}
+\end{flushleft}
+\label{tab:FMQA/SA for Photonic Inverse Design}
+\end{table}
+\clearpage
+
+\section{Low-dimensional Encoding-Based Methods}
+
+在本篇研究中，為了解決組合優化演算法在遇到高解析度網格時，量子位元（QuBits）常常不夠用的限制，以及離散像素結構在製程上帶來的鋸齒效應和光學散射損耗，
+我引進了潛在空間降維以及空間頻率平滑化等機制來對元件結構進行改良。為了讓此研究設計的編碼機制有更紮實的理論根據，我特別整理了相關技術的年份演進跟發展脈絡。\
+
+[18]\textbf{西元2011年}Lazarov與Sigmund探討了如何消除拓撲優化中棋盤格效應（Checkerboard effect），
+他們引入基於Helmholtz偏微分方程的濾波算子，可以用隱式求解的方式做到低通濾波的效果。
+[19]\textbf{西元2016年}Odena 等人分析了神經網路在用反卷積（Deconvolution）放大幾何訊號時，時常會因為網格不均勻重疊而產生離散的棋盤格邊界瑕疵，
+這篇研究證實了改用「插值放大再搭配標準卷積（Resize-Convolution）」的架構能夠真正消除網格瑕疵並還原出平滑的邊界。
+同年，[20]Shi等人提出次像素卷積（Sub-pixel Convolution）的超解析度技術，展示了透過重新排列特徵圖的空間維度，能直接將低解析度特徵映射為高解析度輸出。
+[21]\textbf{西元2017年}Higgins等人提出$\beta$-VAE（變分自編碼器）架構，透過超參數 $\beta$ 來限制潛在空間的容量，
+並且在損失函數中引入KL散度懲罰項，有效控制潛在空間的自由度，
+同年，[22]Piggott 與 Vučković 等人在光學反向設計中採用了水平集方法(Level Set Method)描述結構邊界，並且透過加入曲率限制來消除隙縫與孤島結構，
+使生成的波導邊界更加平滑且更具可製造性。
+[23]\textbf{西元2018年}Burgess等人提出Capacity Annealing，改善$\beta$-VAE 在特徵解耦與重建精度之間的權衡，奠定低維度潛在空間表示的理論基礎。
+\textbf{西元2019年}[24]Ma 與 Liu 等人將變分自編碼器（VAE）應用於超穎材料的反向設計。
+同年，[25]Zhang 等人指出卷積網路在縮放影像時容易產生混疊現象，造成特徵不穩定，而加入低通濾波可減少此問題，為上採樣(Upsampling)階段的高斯平滑提供理論依據。
+\textbf{西元2020年}[26]Li與Anandkumar等人提出傅立葉神經算子（FNO），利用低頻參數化實現偏微分方程映射的網格獨立性，也支持以傅立葉方法平滑幾何邊界。
+\textbf{西元2021年}[27]Kudyshev與Liao等人結合對抗式自編碼器（AAE）與全域最佳化，在低維潛在空間中進行反向設計，提升了設計效率。
+同年，[28]Karras等人與NVIDIA團隊提出了StyleGAN3，透過抗混疊設計減少網格造成的偽影，使生成的結果可以更加平滑且穩定。
+
+
+\begin{table}[H] 
+\centering
+\begin{tabularx}{\textwidth}{l | >{\linespread{1.0}\selectfont\arraybackslash}X}
+\hline \rule{0pt}{1.8em}2011 & Lazarov/Sigmund introduced Helmholtz PDE filtering, eliminating checkerboard effects and mesh-dependence in topology optimization.[18] \\[1.5em]
+
+2016 & Odena/Distill proposed Resize-Convolution to replace deconvolution, eliminating grid artifacts for smooth boundaries; meanwhile[19], Shi/CVPR debuted Sub-pixel Convolution, achieving real-time high-definition super-resolution.[20] \\[1.5em]
+
+2017 & Higgins/DeepMind introduced $\beta$-VAE for feature disentanglement to fit hardware bit limits[21]; Piggott/Stanford used level-set methods with curvature constraints to smooth boundaries for foundry compatibility.[22] \\[1.5em]
+
+2018 & Burgess/DeepMind introduced Capacity Annealing in $\beta$-VAEs, breaking the trade-off between disentanglement and reconstruction.[23] \\[1.5em]
+
+2019 & Ma/Advanced Materials applied VAEs to metamaterials for dimension reduction, resolving the physical pain point of one-to-many mapping.[24]; Zhang/ICML introduced anti-aliasing low-pass filters to CNNs, restoring shift-invariance and supporting Gaussian smoothing.[25] \\[1.5em]
+
+2020 & Li/ICLR pioneered Fourier Neural Operators (FNO) for mesh-independent PDE learning, supporting continuous geometric optimization.[26]; \\[1.5em]
+
+2021 & Kudyshev/Nanophotonics used AAE dimension reduction to couple generative models with black-box global optimization engines.[27]; Karras/NVIDIA introduced StyleGAN3, treating feature maps as continuous signals with low-pass filters to eliminate aliasing.[28] \\[1.5em]
+
+\hline
+\end{tabularx}
+\vspace{-1.8em} 
+\begin{flushleft}
+\noindent{\footnotesize \textcolor{blue}{\textsf{TABLE 3 \quad Low-dimensional Encoding-Based Methods}}}
+\end{flushleft}
+\label{tab:Low-dimensional Encoding-Based Methods}
+\end{table}
+\clearpage
