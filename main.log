@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2026.5.26)  24 JUN 2026 19:31
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2026.5.26)  24 JUN 2026 19:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1008,7 +1008,7 @@ LaTeX Warning: There were undefined references.
 Here is how much of TeX's memory you used:
  16462 strings out of 477728
  362717 string characters out of 5842238
- 690042 words of memory out of 5000000
+ 690044 words of memory out of 5000000
  36705 multiletter control sequences out of 15000+600000
  480379 words of font info for 111 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
