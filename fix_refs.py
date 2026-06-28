@@ -1,48 +1,54 @@
 import re
 
-with open("Sections/2.Relatedwork.tex", "r", encoding="utf-8") as f:
+with open('Sections/2.Relatedwork.tex', 'r', encoding='utf-8') as f:
     text = f.read()
 
-# 1. Section 3: shift [18]-[28] to [21]-[31]
-for i in range(28, 17, -1):
-    text = text.replace(f"[{i}]", f"[{i+3}]")
+replacements = {
+    r'\[1\]': r'\\cite{cox1999_maximizing}',
+    r'\[2\]': r'\\cite{borel2004_topology}',
+    r'\[3\]': r'\\cite{jensen2011_topology}',
+    r'\[4\]': r'\\cite{lalaukeraly2013_adjoint}',
+    r'\[5\]': r'\\cite{piggott2015_inverse_design}',
+    r'\[6\]': r'\\cite{shen2015_integrated_pbs}',
+    r'\[7\]': r'\\cite{frellsen2016_topology_mdm}',
+    r'\[8\]': r'\\cite{piggott2017_fabrication}',
+    r'\[9\]': r'\\cite{molesky2018_inverse}',
+    r'\[10\]': r'\\cite{hammond2021_photonic}',
+    r'\[11\]': r'\\cite{pao2026_nano}',
+    r'\[12\]': r'\\cite{kirkpatrick1983_simulated_annealing}',
+    r'\[13\]': r'\\cite{kadowaki1998_quantum_annealing}',
+    r'\[14\]': r'\\cite{rendle2010_factorization}',
+    r'\[15\]': r'\\cite{kitai2020_fmqa}',
+    r'\[16\]': r'\\cite{inoue2022_fmqa_pcsel}',
+    r'\[17\]': r'\\cite{zhu2024_machine_learning}',
+    r'\[18\]': r'\\cite{hu2025_optical_filter}',
+    r'\[19\]': r'\\cite{chang2026_quantum_compatible}',
+    r'\[20\]': r'\\cite{lazarov2011_filters}',
+    r'\[21\]': r'\\cite{odena2016_deconvolution}',
+    r'\[22\]': r'\\cite{shi2016_subpixel_cnn}',
+    r'\[23\]': r'\\cite{higgins2017_betavae}',
+    r'\[24\]': r'\\cite{piggott2017_fabrication}',
+    r'\[25\]': r'\\cite{burgess2018_understanding_betavae}',
+    r'\[26\]': r'\\cite{ma2019_probabilistic}',
+    r'\[27\]': r'\\cite{zhang2019_shift_invariant}',
+    r'\[28\]': r'\\cite{li2020_fourier_neural_operator}',
+    r'\[29\]': r'\\cite{kudyshev2021_machine_learning}',
+    r'\[30\]': r'\\cite{karras2021_alias_free}',
+    r'\[5, 6\]': r'\\cite{piggott2015_inverse_design,shen2015_integrated_pbs}',
+    r'\[11\]\s*extbf\{2026年\}': r'\\cite{pao2026_nano}\\textbf{2026年}',
+}
 
-# 2. Section 2: shift [11]-[17] to [12]-[18]
-for i in range(17, 10, -1):
-    text = text.replace(f"[{i}]", f"[{i+1}]")
+for k, v in replacements.items():
+    text = re.sub(k, v, text)
 
-# 3. Add Pao to Section 1
-add_pao_text = """將工業級設計規則檢查(DRC)整合至優化過程中。
-[11]\textbf{2026年} $Q/V$ 的超緊湊奈米腔體設計，展現了在極小空間內極致的光學侷限能力。"""
-text = text.replace("將工業級設計規則檢查(DRC)整合至優化過程中。", add_pao_text)
-
-add_pao_table = """2021 & Hammond/Georgia Tech/MIT used differentiable transformations to embed foundry DRC rules, bridging theory and mass production.[10] \\\\[1.5em]
-
-2026 & Pao utilized topology optimization to achieve ultra-compact, high $Q/V$ nanocavities, overcoming reliance on large-area periodic structures.[11] \\\\ % 💡 關鍵修正 1：這裡一定 \\\\ 結尾，底部的 \\hline 才會出現！"""
-text = text.replace(
-    "2021 & Hammond/Georgia Tech/MIT used differentiable transformations to embed foundry DRC rules, bridging theory and mass production.[10] \\\\ % 💡 關鍵修正 1：這裡一定要加 \\\\ 結尾，底部的 \\hline 才會出現！",
-    add_pao_table
-)
-
-# 4. Add Hu and Chang to Section 2
-add_hu_chang_text = """[18]\\textbf{西元2024年}Li等人的綜述確立了「代理模型結合退火(Surrogate --------的可靠性與高效性。
-git push -u origin g等人進一步建立了一套結合機器學習與退火演算法的通用設計框架，並應用於超振盪透鏡（SOL）的反向設計，成功打破了小焦點與高旁瓣的權衡難題，為量子相容的光學元件設計鋪平了道路。"""
-text = text.replace(
-    "[18]\\textbf{西元2024年}Zhu與Li等人的綜述確立了「代理模型結合退火(Surrogate Model + Annealing)」混合架構在複雜物理反向設計中的可靠性與高效性。",
-    add_hu_chang_text
-)
-
-add_hu_chang_table = """2024 & Zhu/Chemical Reviews published a comprehensive review endorsing the ``surrogate model + annealing'' paradigm for inverse design.[18] \\\\[1.5em]
-
-2025 & Hu applied the FMQA framework to optical filters and metastructures, resolving conflicts between long-range interference and quadratic coupling.[19] \\\\[1.5em]
-
-2026 & Chang established a universal ML-annealing framework for superoscillatory lenses, overcoming the small-focus and high-sidelobe trade-off.[20] \\\\"""
-text = text.replace(
-    "2024 & Zhu/Chemical Reviews published a comprehensive review endorsing the ``surrogate model + annealing'' paradigm for inverse design.[18] \\\\",
-    add_hu_chang_table
-)
-
-with open("Sections/2.Relatedwork.tex", "w", encoding="utf-8") as f:
+with open('Sections/2.Relatedwork.tex', 'w', encoding='utf-8') as f:
     f.write(text)
 
-print("Done")
+with open('Sections/3.Theory.tex', 'r', encoding='utf-8') as f:
+    text = f.read()
+
+text = text.replace('經典著作 [29]', '經典著作 \\cite{yariv2007_photonics}')
+text = text.replace('分析架構 [29]', '分析架構 \\cite{yariv2007_photonics}')
+
+with open('Sections/3.Theory.tex', 'w', encoding='utf-8') as f:
+    f.write(text)

@@ -2,14 +2,14 @@
 \label{ch:architecture}
 
 \section{Optical Principles and Numerical Simulation}
-在這個章節中，我會詳細推導並說明光在矽基整合光學波導中的傳播物理，以及模態分波多工器運作的理論基礎，
+在這個章節中，我會詳細推導並說明光在矽基整合光學波導中的傳播物理，以及模態分波解多工器運作的理論基礎，
 最後會介紹數值模擬的基礎理論。我們將從電磁場數學模型出發，分析奈米級波導的邊界條件與模態行為，
 作為後續反向設計演算法與模型預測的依據。
 \subsection{Waveguide Physics and Eigenmode Theory}
 首先，在波導中，光會被侷限在折射率較高的矽核心中，並透過全反射(Total internal reflection, TIR)進行傳播。
-關於介電質波導中電磁場行為與模態特徵值問題的完整理論架構，本節主要參考 A. Yariv 的經典著作 [29] 所建立的物理模型。
+關於介電質波導中電磁場行為與模態特徵值問題的完整理論架構，本節主要參考 A. Yariv 的經典著作 \cite{yariv2007_photonics} 所建立的物理模型。
 在無自由電荷($\rho = 0$)且無源($\vec{J} = 0$)的介電質波導環境中，
-我們可以用馬克士威方程(Maxwell equations)中的法拉第電磁感應定律(3.1)與馬克士威-安培定律(3.2)微分式
+我們可以用馬克士威方程(Maxwell equations)中的法拉第電磁感應定律\eqref{eq:maxwell1}與馬克士威-安培定律\eqref{eq:maxwell2}微分式
 來描述光的傳播行為，如下所示：
 \begin{align}
 \nabla \times \vec{E} &= -\frac{\partial \vec{B}}{\partial t}
@@ -17,7 +17,7 @@
 \nabla \times \vec{H} &= \frac{\partial \vec{D}}{\partial t}
 \label{eq:maxwell2}
 \end{align}
-這時候引入了材料的介電質($\epsilon$)和導磁率($\mu$)，假設光場在具有時諧性(Time-Harmonic)，則(3.1)和(3.2)
+這時候引入了材料的介電質($\epsilon$)和導磁率($\mu$)，假設光場在具有時諧性(Time-Harmonic)，則\eqref{eq:maxwell1}和\eqref{eq:maxwell2}
 馬克士威方程可以寫成頻域複數形式:
 \begin{align}
 \nabla \times \vec{E} &= -i\omega\mu\vec{H}
@@ -25,7 +25,7 @@
 \nabla \times \vec{H} &= i\omega\epsilon\vec{E}
 \label{eq:freq_maxwell2}
 \end{align}
-接著，我們再對馬克士威方程頻域複數形式(3.3)(3.4)取旋度，再均勻的介質中，由於$\nabla\cdot\vec{E} = 0$ ，
+接著，我們再對馬克士威方程頻域複數形式\eqref{eq:freq_maxwell1}與\eqref{eq:freq_maxwell2}取旋度，再均勻的介質中，由於$\nabla\cdot\vec{E} = 0$，
 因此，我們即可推導出經典的亥姆霍茲方程(Helmholtz Equation):
 \begin{align}
 \nabla^2\vec{E} + k_0^2 n^2(\vec{r})\vec{E} = 0
@@ -34,7 +34,14 @@
 其中，$k_0 = \frac{\omega}{c}$為真空中的波數，介電常數與折射率($n$)關係為$\epsilon = n^2\epsilon_0$，
 因此光子能夠被侷限在波導內部傳播，就是因為波導核心層與包層之間的折射率差而產生的全反射(TIR)，在本篇矽基波導的核心
 材料為矽(Silicon, Si)，其折射率($n_{\mathrm{Si}}$)約為3.48; 而包層為二氧化矽(Silicon dioxide, $\mathrm{SiO_2}$)，
-其折射率($n_{\text{SiO}_2}$)約為1.44。
+其折射率($n_{\text{SiO}_2}$)約為1.44，如圖~\ref{fig:waveguide_schematic}所示。
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.6\textwidth]{img/Waveguide schematic diagram.png}
+	\caption{波導示意圖與光場傳播方向。}
+	\label{fig:waveguide_schematic}
+\end{figure}
 
 當波導結構在傳播方向($z$軸)上具備平移對稱性(Translation symmetry)時，我們可以透過將電場進行解分離變數，
 寫成沿著$z$方向傳播的形式:
@@ -43,7 +50,8 @@
 \label{eq:Translation symmetry in Z}
 \end{align}
 
-接著將$z$方向傳播形式(3.6)帶入亥姆霍茲方程(3.5)後，對$z$做二次偏微分會得到$-\beta^2$(也就是$\frac{\partial^2}{\partial z^2} \rightarrow -\beta^2$)，
+接著將$z$方向傳播形式\eqref{eq:Translation symmetry in Z}帶入亥姆霍茲方程\eqref{eq:helmholtz}後，
+對$z$做二次偏微分會得到$-\beta^2$(也就是$\frac{\partial^2}{\partial z^2} \rightarrow -\beta^2$)，
 整理後我們可以得到橫截面($xy$平面)上的二維波動方程:
 \begin{align}
 \left( \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} \right)\vec{E} + k_0^2 n^2(\vec{r})\vec{E} = \beta^2\vec{E}
@@ -64,15 +72,21 @@ L\vec{E} = \beta^2\vec{E}
 
 在這個式子中，模態(Modes)的空間場分佈就會等於該算子 $L$ 的特徵函數(Eigenfunction)，
 而傳播常數的平方 $\beta^2$ 則會等於其對應的特徵值(Eigenvalue)。這個光學特徵值問題在數學形式上，
-與量子力學中的一維有限位能井問題(Particle in a box problem)有著異曲同工之妙，都必須在邊界條件下求得特定波數與對應的
+與量子力學中的一維有限位能井問題(Particle in a box problem)(圖~\ref{fig:Finite Potential Well})有著異曲同工之妙，都必須在邊界條件下求得特定波數與對應的
 空間分布，一維定態薛丁格方程(Schrödinger equation)表示如下：
 \begin{align}
 -\frac{\hbar^2}{2m}\nabla^2\psi + V(\vec{r})\psi = E\psi
 \label{eq:1D schrodinger equation}
 \end{align}
-此式的波函數($\psi$)、位能分布(V($\vec{r}$))與能量特徵值($E$)，分別對應到了波導方程(3.7)中的電場($\vec{E}$)、折射率分布($k_0^2 n^2(\vec{r})$)
+此式的波函數($\psi$)、位能分布(V($\vec{r}$))與能量特徵值($E$)，分別對應到了波導方程\eqref{eq:xy 2D Wave Equation}中的電場($\vec{E}$)、折射率分布($k_0^2 n^2(\vec{r})$)
 以及傳播常數的平方($\beta^2$)。在數學形式的對等性中，我們可以得出光波導兩個核心物理特質的結論:模態量子化(Quantization)與能量侷限性
-(Confinement)，只有特定且不連續的$\beta$值才能夠穩定存在於波導中，且折射率的對比愈大，位能井就愈深，則波導對光場的侷限性就越好。
+(Confinement)，只有特定且不連續的$\beta$值才能夠穩定存在於波導中，且折射率的對比愈大，位能井就愈深，則波導對光場的侷限性就越好。\
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{img/Finite Potential Well.png}
+	\caption{一維有限位能井示意圖。}
+	\label{fig:Finite Potential Well}
+\end{figure}
 
 另外，每個模態的傳播特徵可以由有效折射率(Effective Refractive Index)來定義:
 \begin{align}
@@ -84,7 +98,7 @@ n_{eff} \triangleq \frac{\beta}{k_0}
 n_{1} < n_{eff} < n_{2}
 \label{eq:effective refractive index range}
 \end{align}
-其原因可由電磁場在核心層與包層中的分布特性來理解。在核心層內，光場必須呈現簡諧波動解(Sinusoidal solution)傳播，因此橫向波數需滿足
+其原因可由電磁場在核心層與包層中的分布特性來理解。在核心層內，光場必須呈現簡諧波解(Sinusoidal solution)傳播，因此橫向波數需滿足
 \begin{align}
 h^2\triangleq k_0^2 n_2^2 - \beta^2 > 0
 \label{eq:Sinusoidal solution}
@@ -99,14 +113,14 @@ q^2 = \beta^2 - k_0^2 n_1^2 > 0
 由此可得$\beta > n_1 k_0$，也就是$n_{eff} > n_1$。
 因此，束縛模態的有效折射率必須介於核心層與包層折射率之間，即使是結構較為複雜的反向設計波導，仍然需要滿足以上條件。\
 
-接著，本節參考 A. Yariv 經典光電物理模型中所建立的分析架構 [29]，以一維平板波導(Slab Waveguide)結構為例，
+接著，本節參考 A. Yariv 經典光電物理模型中所建立的分析架構 \cite{yariv2007_photonics}，以一維平板波導(Slab Waveguide)結構為例，
 考慮只有具備$y$軸分量的橫電模態(Transverse Electric Modes, TE modes)，
 其電場可以由以下公式表示:
 \begin{align}
 E_y(x,z,t)=E_m(x)e^{i(\omega t-\beta z)}
 \label{eq:TE mode electric field in slab waveguide}
 \end{align}
-代入二維波動方程(3.7)可以簡化為一維常微分方程，如下式所示:
+代入二維波動方程\eqref{eq:xy 2D Wave Equation}可以簡化為一維常微分方程，如下式所示:
 \begin{align}
 \frac{d^{2}}{d x^{2}}E_{m} + \left[ k_{0}^{2}n^{2}(x) - \beta^{2} \right] E_{m} = 0
 \label{eq:TE mode 1D differential equation in slab waveguide}
@@ -145,27 +159,155 @@ E_{m}(x) = \begin{cases} C \sin(hx) \cdot \text{sgn}(x), & |x| < \frac{d}{2} \\ 
     B q e^{-q\frac{d}{2}} + C h \cos\left(h\frac{d}{2}\right) &= 0
     \end{align}
 \end{itemize}
-
-若要使上述方程組存在非平凡解（Nontrivial solutions），其係數矩陣的行列式值必須嚴格等於零 。
-展開行列式並消去共同項 $e^{-qd/2}$ 後，即可成功導出兩種模態的特徵方程式（Characteristic Equations） ：
+若要使上述方程組存在非平凡解(Nontrivial solutions)，其係數矩陣的行列式值必須嚴格等於零 。
+展開行列式並消去共同項 $e^{-qd/2}$ 後，即可成功導出兩種模態的特徵方程式(Characteristic Equations):
 \begin{align}
     \begin{aligned}
     \text{Symmetric (偶對稱):} \quad & q = h \tan\left(\frac{hd}{2}\right) \\
     \text{Anti-symmetric (奇對稱):} \quad & q = -h \cot\left(\frac{hd}{2}\right)
+    \label{eq:characteristic equations for TE}
     \end{aligned}
 \end{align}
-
-將 $h$ 與 $q$ 的定義代回上式(3.24)，即可得到最終用來求解傳播常數 $\beta$ 的物理關係式 ：
+將 $h$ 與 $q$ 的定義代回上式\eqref{eq:characteristic equations for TE}，即可得到最終用來求解傳播常數 $\beta$ 的物理關係式:
 \begin{align}
     \begin{aligned}
     \text{Symmetric:} \quad & \sqrt{\beta^{2}-{k_{0}}^{2}{n_{1}}^{2}} = \sqrt{k_{0}^{2}n_{2}^{2}-\beta^{2}} \tan\left[\sqrt{k_{0}^{2}n_{2}^{2}-\beta^{2}}\frac{d}{2}\right] \\
     \text{Anti-symmetric:} \quad & \sqrt{\beta^{2}-{k_{0}}^{2}{n_{1}}^{2}} = -\sqrt{k_{0}^{2}n_{2}^{2}-\beta^{2}} \cot\left[\sqrt{k_{0}^{2}n_{2}^{2}-\beta^{2}}\frac{d}{2}\right]
+    \label{eq:beta related equations}
     \end{aligned}
 \end{align}
+在實際的光電工程分析中，此方程式\eqref{eq:beta related equations}可以藉由數值分析工具來進行求解，來計算各階模態精確解的特徵值$\beta$，
+以此來描繪出如$\text{TE}_0, \text{TE}_1, \text{TE}_2$等完整模態橫向波函數分佈，如圖~\ref{fig:TE_mode_profile}所示。
+\begin{figure}
+     \centering
+     \begin{subfigure}[]{0.65\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{img/TE0_Profile.png}
+         \caption{$\text{TE}_0$ Mode Profile}
+         \label{fig:TE0_Profile}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[]{0.65\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{img/TE1_Profile.png}
+         \caption{$\text{TE}_1$ Mode Profile}
+         \label{fig:TE1_Profile}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[]{0.65\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{img/TE2_Profile.png}
+         \caption{$\text{TE}_2$ Mode Profile}
+         \label{fig:TE2_Profile}
+     \end{subfigure}
+        \caption{TE$_n$ mode profile for $n=0,1,2$}
+        \label{fig:TE_mode_profile}
+\end{figure}
 
-在實際的光電工程分析中，此方程式可以藉由數值計算工具來進行求解，來計算各階模態精確解的特徵值$\beta$，
-以此來描繪出如$\text{TE}_0, \text{TE}_1, \text{TE}_2, \text{TE}_3$ 等完整模態橫向波函數分佈。
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 分隔線 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Waveguide Discontinuities and Device Principles}
+
+理想直波導具有沿傳播方向($z$ 軸)的平移對稱性，其特徵模態相互正交。然而，矽基光電積體電路(PIC)常需引入彎曲、交叉或多模複合等不連續結構
+(Waveguide Discontinuities)以實現光信號路由與多工。這些結構打破了平移對稱性，進而引起散射、輻射及模態間的能量耦合。
+本節將分析彎曲波導、交叉波導與模態分波解多工器的物理原理與設計限制。\
+
+當光場進入高曲率的 90 度彎曲波導時，等相位面會因曲率而偏轉。為維持波前同步，外側等相位面的相速度須隨半徑線性增加。
+當外側相速度超過包層介質的相速度極限（$c/n_{\text{clad}}$ 或 $c/n_1$）時，光場無法滿足全反射條件，從而轉化為散射光場並產生散射損耗。
+
+此空間形變與損耗可藉由 Heiblum 與 Harris 提出的共形映射(Conformal Transformation)理論來描述\cite{heiblum1975_curved_waveguides}。
+透過映射函數 $W = u + iv = R \ln(Z/R)$（其中 $Z=x+iy$，$R$ 為等效彎曲半徑），彎曲波導可轉換為 $u,v$ 平面上的等效直波導。
+在該坐標系下，波導的等效折射率 $n_{\text{eq}}(u)$ 分佈為：
+\begin{align}
+n_{\text{eq}}^2(u) = n^2(u) \exp\left(\frac{2u}{R}\right) \approx n^2(u) \left( 1 + \frac{2u}{R} \right)
+\label{eq:equivalent refractive index of curved waveguide}
+\end{align}
+公式顯示，波導外側（$u>0$）的等效折射率隨 $u$ 線性增加，如圖~\ref{fig:bend_waveguide}(b)所示。此折射率梯度使光場中心向外側偏移(Mode Shift)，
+導致直波導與彎曲波導銜接時產生模態不匹配損耗(Mode Mismatch Loss)。
+
+利用 WKB 近似(Wentzel-Kramers-Brillouin Approximation)求解此等效模型，可推導出彎曲波導的散射損耗衰減常數 $\alpha$。
+在微擾近似下，$\alpha$ 主要由穿透轉折點(Turning Point，即 $n_{\text{eq}}(u) = n_{\text{eff}}$，如圖~\ref{fig:bend_waveguide}(b))外側之勢壘決定，
+其正比關係可近似為：
+
+\begin{align}
+\alpha \propto \exp\left(-\frac{4\pi}{\lambda_0} R n_{\text{clad}} \delta\right)
+\label{eq:radiation loss of curved waveguide}
+\end{align}
+為了提高$\text{TE}_0$模態的耦合效率，傳統設計通常會採用向外平移（Outward Offset, $\Delta x$，如圖~\ref{fig:bend_waveguide}(a)）技術來對齊銜接處的場型中心。
+而當元件尺寸為了提高集成度而大幅縮小時，彎曲半徑 $R$ 的減小會導致散射損耗 $\alpha$ 指數型激增。
+此時，傳統的固定半徑與線性平移設計已無法有效兼顧散射損耗與模態不匹配。
+因此，本研究採用反向設計方法，對彎曲波導的幾何邊界進行非對稱的結構優化，以突破傳統結構的設計瓶頸。
+
+如圖~\ref{fig:bend_waveguide}所示，(a) 實體空間中，彎曲波導的模態中心向外側偏移，而直、彎波導銜接處可以利用向外平移的方式來對齊光場中心；
+(b) 共形映射後，等效直角坐標 $u$ 下的折射率與模態場 $\psi(u)$ 分佈。等效折射率 $n_{\text{eq}}(u)$ 隨空間往外側增加，
+在轉折點(Turning Point, $n_{\text{eq}} = n_{\text{eff}}$)外側，光場轉化為振盪的輻射模並造成散射損耗。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/bend_wavegidue.png}
+    \caption{彎曲波導中的模態偏移與共形映射分析。}
+    \label{fig:bend_waveguide}
+\end{figure}
+
+另外，在交叉波導(Waveguide Crossing)結構中，幾何不連續性主要發生於十字交會處。當原本被束縛在輸入波導的特徵模態進入波導交叉處時，
+會因為瞬間失去了側邊高折射率差的約束，而光場會衰減為在均勻介質中傳播的自由空間波(Free-space wave)，
+進而遵循惠更斯-菲涅耳原理(Huygens–Fresnel Principle)，產生明顯的繞射與發散。
+
+當發散的光場抵達輸出端時，傳輸效率 $\eta$ 在數學上受限於輸入發散場 $\vec{E}_{\text{in}}$ 
+與輸出波導特徵模態 $\vec{E}_{\text{out}}$ 之間的重疊積分(Overlap integral)\cite{chrostowski2015_silicon_photonics}:
+\begin{align}
+\eta = \frac{\left| \iint \vec{E}_{\text{in}} \times \vec{H}_{\text{out}}^* \cdot \hat{z} \, dx dy \right|^2}{\iint \text{Re}(\vec{E}_{\text{in}} \times \vec{H}_{\text{in}}^*) \cdot \hat{z} \, dx dy \iint \text{Re}(\vec{E}_{\text{out}} \times \vec{H}_{\text{out}}^*) \cdot \hat{z} \, dx dy}
+\label{eq:overlap_integral}
+\end{align}
+
+沒有約束的繞射效應會使輸入場 $\vec{E}_{\text{in}}$ 在空間中快速的發散，而導致上述重疊積分大幅下降，成為元件插入損耗(Insertion Loss)的主因。
+
+這些未與輸出特徵模態匹配的雜散光場，除了部分向基板與包層發散外，大部分會直接散射並耦合至垂直的交叉通道。
+這種能量洩漏會導致通道間串擾(Crosstalk)與訊號交叉污染，進而降低積體光學系統的訊號雜訊比(Signal-to-Noise Ratio, SNR)與雜訊容限(Noise Margin)。\
+
+模態分波解多工器(Mode Division Demultiplexer, DEMUX)用於將單一多模通道中同時傳輸的不同階模態(如 $\text{TE}_0$ 與 $\text{TE}_1$)分離，
+並轉換為對應單模輸出通道的基模。根據勞倫茲互易定理(Lorentz Reciprocity)，光的傳播具有可逆性，
+因此模態分波多工器(MUX)與解多工器(DEMUX)在物理結構上完全相同，只有傳播方向相反。
+
+在理想的直波導中，各階模態構成完備且正交(Orthogonal)的基底，模態能量互不干擾。若要使特定高階模態發生空間轉移與轉換，
+解多工器就必須引入非對稱幾何邊界或拓撲突變。這些細小破碎的結構微擾會打破原有的系統對稱性，使原本的正交性失效。
+這種模態轉換與非預期的能量耦合可以用耦合模態理論(Coupled Mode Theory, CMT)\cite{yariv2007_photonics}分析。
+假設多模波導中的高階模態為 $a$(傳播常數為 $\beta_a$)，目標單模波導中的基模為 $b$(傳播常數為 $\beta_b$)，
+則兩通道間的能量轉移滿足以下耦合微分方程：
+\begin{align}
+\frac{dA(z)}{dz} &= -i \kappa_{ab} B(z) e^{i\Delta\beta z} \\
+\frac{dB(z)}{dz} &= -i \kappa_{ba} A(z) e^{-i\Delta\beta z}
+\label{eq:mode coupling of directional coupler}
+\end{align}
+其中，$A(z)$ 與 $B(z)$ 分別為兩模態沿傳播方向的包絡(Envelope)，相位失配量定義為 $\Delta\beta = \beta_a - \beta_b$。
+
+若要使能量完全轉移，必須滿足相位匹配條件(Phase Matching, $\Delta\beta = 0$)。在此基礎上，引入非對稱幾何微擾 $\Delta \epsilon(x,y)$ 後，
+模態間的交叉耦合係數(Cross-coupling coefficient) \cite{yariv2007_photonics}$\kappa_{ab}$可表示為微擾區域的重疊積分：
+\begin{align}
+\kappa_{ab} = \frac{\omega}{4} \iint \Delta \epsilon(x,y) \vec{E}_a^* \cdot \vec{E}_b \, dx dy
+\label{eq:mode cross coupling coefficient}
+\end{align}
+傳統非對稱的直接耦合器受限於簡單的幾何漸變，容易產生非理想的物理效應。當解多工器引入拓撲突變時，
+非預期的能量耦合會隨之增強。若非目標模態在微擾區域內的耦合係數 $\kappa_{mn}$ 不為零，
+部分能量會洩漏到其他分離通道，造成通道間的串擾(Crosstalk, CT)。其串擾定義為：
+\begin{align}
+\text{CT (dB)} = 10 \log_{10} \left( \frac{P_{\text{leakage}}}{P_{\text{target}}} \right)
+\label{eq:crosstalk}
+\end{align}
+其中 $P_{\text{leakage}}$ 為洩漏功率，$P_{\text{target}}$ 為目標通道功率。
+
+此外，元件的插入損耗 (Insertion Loss, IL) 用以描述輸入光功率與目標輸出通道功率之間的損失，其定義為
+\begin{align}
+\text{IL (dB)} = -10 \log_{10} \left( \frac{P_{\text{target}}}{P_{\text{in}}} \right)
+\label{eq:insertion loss}
+\end{align}
+其中 $P_{\mathrm{in}}$ 為輸入光功率。插入損耗愈小，表示元件的能量傳輸效率愈高。
+高串擾會降低系統的訊號雜訊比(Signal-to-Noise Ratio, SNR)，而未成功耦合到目標通道的能量則會增加元件的插入損耗。
+
+因此，由於模態解多工器具有複雜且微細的幾何特徵，且各結構參數對光場分佈與模態耦合存在高度非線性的交互作用，難以透過傳統參數掃描或經驗法則進行設計。
+為此，本研究採用反向設計(Inverse Design)方法，利用最佳化演算法在龐大的設計空間中自動搜尋符合性能需求的結構。
+
 \subsection{Finite-Difference Time-Domain (FDTD) Method}
+
+本篇論文所使用的光學模擬方法為MEEP(MIT Electromagnetic Equation Propagation)，是由麻省理工學院的研究團隊於2006年開發的
+開源套裝電磁模擬軟體，其方法基於有限差分時域法(Finite-Difference Time-Domain, FDTD)。
+本章節內容主要參考其研究團隊於2010年發表的論文\cite{oskooi2010_meep}。
