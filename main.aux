@@ -11,6 +11,9 @@
 \@writefile{toc}{\contentsline {chapter}{中文摘要}{i}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{英文摘要}{iii}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{目錄}{v}{}\protected@file@percent }
+\citation{meep_docs}
+\citation{meep_docs}
+\citation{hao2008fdtd}
 \@writefile{toc}{\contentsline {chapter}{圖目錄\vspace  {0em}}{vii}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{表目錄\vspace  {0em}}{viii}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction and Motivation}{1}{}\protected@file@percent }
@@ -136,86 +139,122 @@
 \newlabel{fig:TE_mode_profile}{{3}{18}}
 \citation{heiblum1975_curved_waveguides}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Waveguide Discontinuities and Device Principles}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2.1}Bend Waveguide}{19}{}\protected@file@percent }
 \newlabel{eq:equivalent refractive index of curved waveguide}{{3.26}{19}}
 \newlabel{eq:radiation loss of curved waveguide}{{3.27}{20}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces 彎曲波導中的模態偏移與共形映射分析。\relax }}{20}{}\protected@file@percent }
 \newlabel{fig:bend_waveguide}{{4}{20}}
 \citation{chrostowski2015_silicon_photonics}
 \citation{yariv2007_photonics}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2.2}Waveguide Crossing}{21}{}\protected@file@percent }
 \newlabel{eq:overlap_integral}{{3.28}{21}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2.3}Mode Division Demultiplexer (DEMUX)}{21}{}\protected@file@percent }
 \citation{yariv2007_photonics}
 \newlabel{eq:mode coupling of directional coupler}{{3.30}{22}}
 \newlabel{eq:mode cross coupling coefficient}{{3.31}{22}}
 \newlabel{eq:crosstalk}{{3.32}{22}}
-\newlabel{eq:insertion loss}{{3.33}{22}}
 \citation{oskooi2010_meep}
+\citation{meep_docs}
+\newlabel{eq:insertion loss}{{3.33}{23}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Finite-Difference Time-Domain (FDTD) Method}{23}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Data Fusion Algorithm}{24}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3.1}Units and Yee Lattice}{23}{}\protected@file@percent }
+\newlabel{eq:maxwell_curl_1}{{3.34}{23}}
+\newlabel{eq:maxwell_curl_2}{{3.35}{24}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces MEEP unit system and practical physical unit examples.\relax }}{24}{}\protected@file@percent }
+\newlabel{tab:meep_units}{{4}{24}}
+\newlabel{eq:yee_lattice}{{3.36}{24}}
+\citation{meep_docs}
+\citation{meep_docs}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces 三維 Yee 晶格空間分量示意圖\cite  {meep_docs}。\relax }}{25}{}\protected@file@percent }
+\newlabel{fig:3D_YEE_Lattice}{{5}{25}}
+\newlabel{eq: E_y}{{3.37}{25}}
+\newlabel{eq: H_z}{{3.38}{25}}
+\newlabel{eq: H_y}{{3.39}{25}}
+\newlabel{eq: E_z}{{3.40}{25}}
+\citation{meep_docs}
+\citation{meep_docs}
+\newlabel{eq:yee_lattice_2d}{{3.41}{26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces 二維 Yee 晶格空間分量示意圖\cite  {meep_docs}。\relax }}{26}{}\protected@file@percent }
+\newlabel{fig:2D_YEE_Lattice}{{6}{26}}
+\citation{hao2008fdtd}
+\citation{hao2008fdtd}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3.2}Leapfrog Scheme and Courant Condition}{27}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces 跳蛙法時間軸示意圖\cite  {hao2008fdtd}。\relax }}{27}{}\protected@file@percent }
+\newlabel{fig:Leapfrog}{{7}{27}}
+\newlabel{eq:leapfrog_time}{{3.42}{27}}
+\newlabel{eq:Explicit Update Equation}{{3.43}{27}}
+\newlabel{eq:cfl}{{3.44}{28}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3.3}Subpixel Smoothing}{28}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3.4}Perfectly Matched Layer, PML}{28}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3.5}Discrete Fourier Transform (DFT) and Mode Expansion}{28}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Data Fusion Algorithm}{29}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:method}{{4}{24}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces PDF Figure Example.\relax }}{24}{}\protected@file@percent }
-\newlabel{fig:system_architecture}{{5}{24}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Data Preprocessing}{24}{}\protected@file@percent }
-\newlabel{sec:SMA}{{4.1}{24}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces PNG Example.\relax }}{25}{}\protected@file@percent }
-\newlabel{fig:model}{{6}{25}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}2D LiDAR Data}{25}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusions}{26}{}\protected@file@percent }
+\newlabel{ch:method}{{4}{29}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces PDF Figure Example.\relax }}{29}{}\protected@file@percent }
+\newlabel{fig:system_architecture}{{8}{29}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Data Preprocessing}{29}{}\protected@file@percent }
+\newlabel{sec:SMA}{{4.1}{29}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces PNG Example.\relax }}{30}{}\protected@file@percent }
+\newlabel{fig:model}{{9}{30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}2D LiDAR Data}{30}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusions}{31}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:conclusion}{{5}{26}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Performance Evaluation}{27}{}\protected@file@percent }
+\newlabel{ch:conclusion}{{5}{31}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Performance Evaluation}{32}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:evaluation}{{6}{27}}
-\newlabel{fig:11111}{{7a}{27}}
-\newlabel{sub@fig:11111}{{a}{27}}
-\newlabel{fig:22222}{{7b}{27}}
-\newlabel{sub@fig:22222}{{b}{27}}
-\newlabel{fig:33333}{{7c}{27}}
-\newlabel{sub@fig:33333}{{c}{27}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Three simple graphs\relax }}{27}{}\protected@file@percent }
-\newlabel{fig:three graphs}{{7}{27}}
+\newlabel{ch:evaluation}{{6}{32}}
+\newlabel{fig:11111}{{10a}{32}}
+\newlabel{sub@fig:11111}{{a}{32}}
+\newlabel{fig:22222}{{10b}{32}}
+\newlabel{sub@fig:22222}{{b}{32}}
+\newlabel{fig:33333}{{10c}{32}}
+\newlabel{sub@fig:33333}{{c}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Three simple graphs\relax }}{32}{}\protected@file@percent }
+\newlabel{fig:three graphs}{{10}{32}}
 \bibstyle{IEEEtran}
 \bibdata{ref}
-\bibcite{cox1999_maximizing}{1}
-\bibcite{borel2004_topology}{2}
-\bibcite{jensen2011_topology}{3}
-\bibcite{lalaukeraly2013_adjoint}{4}
-\bibcite{piggott2015_inverse_design}{5}
-\bibcite{shen2015_integrated_pbs}{6}
-\bibcite{frellsen2016_topology_mdm}{7}
-\@writefile{toc}{\contentsline {chapter}{References}{28}{}\protected@file@percent }
-\bibcite{piggott2017_fabrication}{8}
-\bibcite{molesky2018_inverse}{9}
-\bibcite{hammond2021_photonic}{10}
-\bibcite{pao2026_nano}{11}
-\bibcite{kirkpatrick1983_simulated_annealing}{12}
-\bibcite{kadowaki1998_quantum_annealing}{13}
-\bibcite{rendle2010_factorization}{14}
-\bibcite{kitai2020_fmqa}{15}
-\bibcite{inoue2022_fmqa_pcsel}{16}
-\bibcite{zhu2024_machine_learning}{17}
-\bibcite{hu2025_optical_filter}{18}
-\bibcite{chang2026_quantum_compatible}{19}
-\bibcite{lazarov2011_filters}{20}
-\bibcite{odena2016_deconvolution}{21}
-\bibcite{shi2016_subpixel_cnn}{22}
-\bibcite{higgins2017_betavae}{23}
-\bibcite{burgess2018_understanding_betavae}{24}
-\bibcite{ma2019_probabilistic}{25}
-\bibcite{zhang2019_shift_invariant}{26}
-\bibcite{li2020_fourier_neural_operator}{27}
-\bibcite{kudyshev2021_machine_learning}{28}
-\bibcite{karras2021_alias_free}{29}
-\bibcite{yariv2007_photonics}{30}
-\bibcite{heiblum1975_curved_waveguides}{31}
-\bibcite{chrostowski2015_silicon_photonics}{32}
-\bibcite{oskooi2010_meep}{33}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Appendix 附錄}{33}{}\protected@file@percent }
+\bibcite{meep_docs}{1}
+\bibcite{hao2008fdtd}{2}
+\bibcite{cox1999_maximizing}{3}
+\bibcite{borel2004_topology}{4}
+\bibcite{jensen2011_topology}{5}
+\bibcite{lalaukeraly2013_adjoint}{6}
+\bibcite{piggott2015_inverse_design}{7}
+\bibcite{shen2015_integrated_pbs}{8}
+\@writefile{toc}{\contentsline {chapter}{References}{33}{}\protected@file@percent }
+\bibcite{frellsen2016_topology_mdm}{9}
+\bibcite{piggott2017_fabrication}{10}
+\bibcite{molesky2018_inverse}{11}
+\bibcite{hammond2021_photonic}{12}
+\bibcite{pao2026_nano}{13}
+\bibcite{kirkpatrick1983_simulated_annealing}{14}
+\bibcite{kadowaki1998_quantum_annealing}{15}
+\bibcite{rendle2010_factorization}{16}
+\bibcite{kitai2020_fmqa}{17}
+\bibcite{inoue2022_fmqa_pcsel}{18}
+\bibcite{zhu2024_machine_learning}{19}
+\bibcite{hu2025_optical_filter}{20}
+\bibcite{chang2026_quantum_compatible}{21}
+\bibcite{lazarov2011_filters}{22}
+\bibcite{odena2016_deconvolution}{23}
+\bibcite{shi2016_subpixel_cnn}{24}
+\bibcite{higgins2017_betavae}{25}
+\bibcite{burgess2018_understanding_betavae}{26}
+\bibcite{ma2019_probabilistic}{27}
+\bibcite{zhang2019_shift_invariant}{28}
+\bibcite{li2020_fourier_neural_operator}{29}
+\bibcite{kudyshev2021_machine_learning}{30}
+\bibcite{karras2021_alias_free}{31}
+\bibcite{yariv2007_photonics}{32}
+\bibcite{heiblum1975_curved_waveguides}{33}
+\bibcite{chrostowski2015_silicon_photonics}{34}
+\bibcite{oskooi2010_meep}{35}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Appendix 附錄}{38}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:appendix}{{7}{33}}
+\newlabel{ch:appendix}{{7}{38}}
 \ttl@finishall
-\gdef \@abspage@last{45}
+\gdef \@abspage@last{50}

@@ -211,6 +211,7 @@ E_{m}(x) = \begin{cases} C \sin(hx) \cdot \text{sgn}(x), & |x| < \frac{d}{2} \\ 
 (Waveguide Discontinuities)以實現光信號路由與多工。這些結構打破了平移對稱性，進而引起散射、輻射及模態間的能量耦合。
 本節將分析彎曲波導、交叉波導與模態分波解多工器的物理原理與設計限制。\
 
+\subsubsection{Bend Waveguide}
 當光場進入高曲率的 90 度彎曲波導時，等相位面會因曲率而偏轉。為維持波前同步，外側等相位面的相速度須隨半徑線性增加。
 當外側相速度超過包層介質的相速度極限（$c/n_{\text{clad}}$ 或 $c/n_1$）時，光場無法滿足全反射條件，從而轉化為散射光場並產生散射損耗。
 
@@ -248,7 +249,8 @@ n_{\text{eq}}^2(u) = n^2(u) \exp\left(\frac{2u}{R}\right) \approx n^2(u) \left( 
     \label{fig:bend_waveguide}
 \end{figure}
 
-另外，在交叉波導(Waveguide Crossing)結構中，幾何不連續性主要發生於十字交會處。當原本被束縛在輸入波導的特徵模態進入波導交叉處時，
+\subsubsection{Waveguide Crossing}
+在交叉波導(Waveguide Crossing)結構中，幾何不連續性主要發生於十字交會處。當原本被束縛在輸入波導的特徵模態進入波導交叉處時，
 會因為瞬間失去了側邊高折射率差的約束，而光場會衰減為在均勻介質中傳播的自由空間波(Free-space wave)，
 進而遵循惠更斯-菲涅耳原理(Huygens–Fresnel Principle)，產生明顯的繞射與發散。
 
@@ -264,6 +266,7 @@ n_{\text{eq}}^2(u) = n^2(u) \exp\left(\frac{2u}{R}\right) \approx n^2(u) \left( 
 這些未與輸出特徵模態匹配的雜散光場，除了部分向基板與包層發散外，大部分會直接散射並耦合至垂直的交叉通道。
 這種能量洩漏會導致通道間串擾(Crosstalk)與訊號交叉污染，進而降低積體光學系統的訊號雜訊比(Signal-to-Noise Ratio, SNR)與雜訊容限(Noise Margin)。\
 
+\subsubsection{Mode Division Demultiplexer (DEMUX)}
 模態分波解多工器(Mode Division Demultiplexer, DEMUX)用於將單一多模通道中同時傳輸的不同階模態(如 $\text{TE}_0$ 與 $\text{TE}_1$)分離，
 並轉換為對應單模輸出通道的基模。根據勞倫茲互易定理(Lorentz Reciprocity)，光的傳播具有可逆性，
 因此模態分波多工器(MUX)與解多工器(DEMUX)在物理結構上完全相同，只有傳播方向相反。
@@ -308,6 +311,150 @@ n_{\text{eq}}^2(u) = n^2(u) \exp\left(\frac{2u}{R}\right) \approx n^2(u) \left( 
 
 \subsection{Finite-Difference Time-Domain (FDTD) Method}
 
-本篇論文所使用的光學模擬方法為MEEP(MIT Electromagnetic Equation Propagation)，是由麻省理工學院的研究團隊於2006年開發的
-開源套裝電磁模擬軟體，其方法基於有限差分時域法(Finite-Difference Time-Domain, FDTD)。
-本章節內容主要參考其研究團隊於2010年發表的論文\cite{oskooi2010_meep}。
+本篇論文所使用的光學模擬方法為MEEP(MIT Electromagnetic Equation Propagation)，是由MIT麻省理工學院的研究團隊於2006年開發的
+開源電磁模擬軟體，其方法基於有限差分時域法(Finite-Difference Time-Domain, FDTD)。
+本章節內容主要參考其研究團隊於2010年發表的論文\cite{oskooi2010_meep}以及其官方網站的說明\cite{meep_docs}
+
+\subsubsection{Units and Yee Lattice}
+在MEEP中，所有物理量皆採用無因次單位(Dimensionless Units)，將基礎物理常數設定為$\epsilon_0 = 1$、$\mu_0 = 1$以及光速$c = 1$。
+在此單位制下，馬克士威旋度方程(Maxwell's Curl Equations)化為無因次形式:
+\begin{align}
+\nabla \times E &= -\frac{\partial H}{\partial t}
+\label{eq:maxwell_curl_1}
+\end{align}
+\begin{align}
+\nabla \times H = \varepsilon_{r}(r) \frac{\partial E}{\partial t}
+\label{eq:maxwell_curl_2}
+\end{align}
+其中$\varepsilon_{r}(r)$為相對介電常數。這種單位制的直接結果是：當空間幾何結構與工作波長等比例縮放時，電磁響應完全不變，即馬克士威方程的尺度不變性(Scale Invariance)。
+實際應用中，使用者可自定義一個特徵長度單位$a$，其他物理量單位由$a$與$c$推導得出，對應關係如下表所示:
+\begin{table}[H] 
+\centering
+\begin{tabularx}{\textwidth}{c | c | >{\centering\linespread{1.0}\selectfont\arraybackslash}X}
+\hline \rule{0pt}{1.8em}
+\textbf{物理量 (Physical Quantity)} & \textbf{MEEP 單位表示} & \textbf{實際物理單位 ($a=1\,\mu\text{m}$)} \\ \hline \rule{0pt}{1.5em}
+長度 (Length, $L$) & $a$ & $1\,\mu\text{m}$ \\ \hline \rule{0pt}{1.5em}
+時間 (Time, $T$) & $a/c$ & $3.33\text{ fs}$ \\ \hline \rule{0pt}{1.5em}
+頻率 (Frequency, $f$) & $c/a$ & $300\text{ THz}$ \\ \hline \rule{0pt}{1.5em}
+波長 (Wavelength, $\lambda$) & $a/f_{\text{MEEP}}$ & $\lambda = 1/f_{\text{MEEP}}$ \\ \hline
+\end{tabularx}
+\captionsetup{name=TABLE, font={color=blue, sf, footnotesize}}
+\caption{MEEP unit system and practical physical unit examples.}
+\label{tab:meep_units}
+\end{table}
+\noindent 例如，MEEP中設定頻率$f_{\text{MEEP}} = 0.5$時，對應的實際工作波長為$\lambda = a / 0.5 = 2a$。
+
+空間離散化方面，MEEP採用Yee晶格(Yee Grid)技術。如圖~\ref{fig:3D_YEE_Lattice}所示，
+Yee晶格的核心做法是將電場$E$與磁場$H$的空間分量在網格中錯開半個步長($\Delta/2$)交替排列。
+以三維網格點 $(i, j, k)$ 為基準，各場分量的取樣位置具有嚴格的幾何對稱性：電場分量位於棱
+邊中心，例如 $E_x$ 位於 $(i+1/2, j, k)$；磁場分量則位於面中心，例如頂面的磁場分量 $H_z$ 位於 $(i+1/2, j+1/2, k+1)$。
+這種交錯排布使得空間偏導數可以用中心差分(Central-difference)近似，具有二階精確度，可有效降低數值色散誤差。
+以頂面最前側棱邊的電場 $E_x(i+1/2, j, k+1)$ 位置為例，這邊的 $\partial H_z / \partial y$ 空間偏導數可近似表示為：
+\begin{align}
+\left.\frac{\partial H_z}{\partial y}\right|_{(i+1/2, j, k+1)} \approx \frac{H_z(i+1/2, j+1/2, k+1) - H_z(i+1/2, j-1/2, k+1)}{\Delta y}
+\label{eq:yee_lattice}
+\end{align}
+\clearpage
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.6\textwidth]{img/3D_YEE_Lattice.png}
+	\caption{三維 Yee 晶格空間分量示意圖\cite{meep_docs}。}
+	\label{fig:3D_YEE_Lattice}
+\end{figure}
+
+\noindent 本研究之元件數值模擬主要採用二維結構，假設幾何結構在 $z$ 軸無限延伸($\partial / \partial z = 0$)。
+在此假設下，馬克士威旋度方程可化簡為兩組對應 TE 與 TM 偏振的方程式。
+\begin{itemize}
+    \item TE 模態(Transverse Electric)：包含場分量$E_x$、$E_y$與$H_z$，方程式簡化為：
+    \begin{align}
+    \frac{\partial E_y}{\partial x} - \frac{\partial E_x}{\partial y} = -\frac{\partial H_z}{\partial t}
+    \label{eq: E_y}
+    \end{align}
+    \begin{align}
+    \frac{\partial H_z}{\partial y} = \varepsilon \frac{\partial E_x}{\partial t}, \quad -\frac{\partial H_z}{\partial x} = \varepsilon \frac{\partial E_y}{\partial t}
+    \label{eq: H_z}
+    \end{align}
+    \item TM 模態(Transverse Magnetic)：包含場分量$H_x$、$H_y$與$E_z$，方程式簡化為：
+    \begin{align}
+    \frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y} = \varepsilon \frac{\partial E_z}{\partial t}
+    \label{eq: H_y}
+    \end{align}
+    \begin{align}
+    \frac{\partial E_z}{\partial y} = -\frac{\partial H_x}{\partial t}, \quad -\frac{\partial E_z}{\partial x} = -\frac{\partial H_y}{\partial t}
+    \label{eq: E_z}
+    \end{align}
+\end{itemize}
+上述方程映射回二維的 Yee 晶格時，三維網格可簡化為 $xy$ 平面上的二維網格。以本研究反向設計之光學模擬所涉及的 TE 模態為例，其二維 Yee 晶格分量配置如圖~\ref{fig:2D_YEE_Lattice} 所示。
+在二維網格點 $(i, j)$ 的標準下:
+\begin{itemize}
+    \item 磁場分量 $H_z$ 位於網格胞體(Cell)之中心點，位置為 $(i+1/2, j+1/2)$。
+    \item 電場分量 $E_x$ 與 $E_y$ 則分別位於網格的水平與垂直棱邊中點，位置分別為 $(i+1/2, j)$ 與 $(i, j+1/2)$。
+\end{itemize}
+藉由這種二維交錯排列，在公式\eqref{eq: H_z} 中計算 $E_x$ 更新所需的 $\partial H_z / \partial y$ 空間偏導數，在網格點 $(i+1/2, j)$ 處可以精確的離散化為：
+\begin{align}
+\left.\frac{\partial H_z}{\partial y}\right|_{(i+1/2, j)} \approx \frac{H_z(i+1/2, j+1/2) - H_z(i+1/2, j-1/2)}{\Delta y}
+\label{eq:yee_lattice_2d}
+\end{align}
+上述的偏振分離與二維離散化特性，可以減少二維模擬中的記憶體使用和計算成本
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.45\textwidth]{img/2D_YEE_Lattice.png}
+\caption{二維 Yee 晶格空間分量示意圖\cite{meep_docs}。}
+\label{fig:2D_YEE_Lattice}
+\end{figure}
+\clearpage
+
+\subsubsection{Leapfrog Scheme and Courant Condition}
+除了在空間上使用 Yee 晶格進行交錯排列外，FDTD 方法在時間軸上也採用了這種類似的交錯取樣策略，稱為跳蛙法(Leapfrog Scheme)。
+如圖~\ref{fig:Leapfrog} 所示，電場 $E$ 取在整數時間的步長 $t = n\Delta t$ 進行取樣（如 $E^n, E^{n+1}$），
+而磁場 $H$ 則是取在半整數時間的步長 $t = (n+1/2)\Delta t$ 進行取樣（如 $H^{n-1/2}, H^{n+1/2}$）。
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.45\textwidth]{img/leapfrog.png}
+\caption{跳蛙法時間軸示意圖\cite{hao2008fdtd}。}
+\label{fig:Leapfrog}
+\end{figure}
+
+藉由錯開在時間軸上的半步長，使得馬克士威方程中的時間偏導數都能夠以二階精確度的中心差分進行近似計算。以二維 TE 模態中的公式\eqref{eq: H_z}為例，
+電場 $E_x$ 在時間 $t = (n+1/2)\Delta t$ 的時間偏導數可利用中心差分近似為：
+\begin{align}
+\left.\frac{\partial E_x}{\partial t}\right|^{n+1/2}_{(i+1/2, j)} \approx \frac{E_x^{n+1}(i+1/2, j) - E_x^n(i+1/2, j)}{\Delta t}
+\label{eq:leapfrog_time}
+\end{align}
+
+將公式\eqref{eq:yee_lattice_2d} 與公式\eqref{eq:leapfrog_time} 代回原方程式\eqref{eq: H_z}，
+就可以推導出電場在未來時間步長 $n+1$ 的顯式更新方程式(Explicit Update Equation)，在更新位置 $(i+\frac12,j)$ 處，電場更新方程式可簡寫為:
+\begin{align}
+E_x^{n+1} = E_x^{n} + \frac{\Delta t}{\varepsilon_r\Delta y} \left( H_{z,j+\frac12}^{\,n+\frac12} - H_{z,j-\frac12}^{\,n+\frac12} \right)
+\label{eq:Explicit Update Equation}
+\end{align}
+由於每一步更新皆直接利用前一時刻已知的場值，因此 FDTD 屬於顯式(explicit)時間積分方法。
+
+同理，磁場 $H_z^{n+1/2}$ 也可以藉由前一個時間步長的磁場與更新時間步長之電場的空間差分計算得到。
+這種藉由時間更新迴圈（$E^n \rightarrow H^{n+1/2} \rightarrow E^{n+1}$）在時域中交替迭代的方法，
+就是FDTD方法的核心。
+
+然而，在顯式時間迭代過程中，空間網格步長（$\Delta x, \Delta y$）與時間步長（$\Delta t$）並不能任意設定。
+為了確保數值解於時間迭代過程中保持穩定，避免產生非物理性的數值發散，時間步長必須根據空間離散的尺度來滿足 Courant-Friedrichs-Lewy(CFL)穩定性條件。
+在一般的 $d$ 維空間中，該數值穩定性條件要求：
+\begin{align}
+\Delta t \le \frac{1}{c \sqrt{ \sum_{m=1}^{d} \frac{1}{\Delta x_m^2} }}
+\label{eq:cfl}
+\end{align}
+在 MEEP 採用的無因次單位制中，光速已設定為 $c = 1$。若假設模擬採用均勻的二維網格（$\Delta x = \Delta y = \Delta$），則公式\eqref{eq:cfl} 可化簡為：
+\begin{align}
+\Delta t \le \frac{\Delta}{\sqrt{2}} \approx 0.707 \Delta
+\end{align}
+在實際應用中，MEEP 預設引用一個無因次的 Courant 因子(Courant Factor) $S$，定義為 $S = \Delta t / \Delta$。
+MEEP 預設將其保守地設定為 $S = 0.5$（滿足小於 $0.707$ 之要求），以此來提供一般光學模擬足夠的數值穩定性。
+
+
+
+
+\subsubsection{Subpixel Smoothing}
+
+\subsubsection{Perfectly Matched Layer, PML}
+
+\subsubsection{Discrete Fourier Transform (DFT) and Mode Expansion}

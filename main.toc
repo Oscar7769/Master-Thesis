@@ -20,12 +20,20 @@
 \contentsline {section}{\numberline {3.1}Optical Principles and Numerical Simulation}{11}{}%
 \contentsline {subsection}{\numberline {3.1.1}Waveguide Physics and Eigenmode Theory}{11}{}%
 \contentsline {subsection}{\numberline {3.1.2}Waveguide Discontinuities and Device Principles}{19}{}%
+\contentsline {subsubsection}{\numberline {3.1.2.1}Bend Waveguide}{19}{}%
+\contentsline {subsubsection}{\numberline {3.1.2.2}Waveguide Crossing}{21}{}%
+\contentsline {subsubsection}{\numberline {3.1.2.3}Mode Division Demultiplexer (DEMUX)}{21}{}%
 \contentsline {subsection}{\numberline {3.1.3}Finite-Difference Time-Domain (FDTD) Method}{23}{}%
-\contentsline {chapter}{\numberline {4}Data Fusion Algorithm}{24}{}%
-\contentsline {section}{\numberline {4.1}Data Preprocessing}{24}{}%
-\contentsline {subsection}{\numberline {4.1.1}2D LiDAR Data}{25}{}%
-\contentsline {chapter}{\numberline {5}Conclusions}{26}{}%
-\contentsline {chapter}{\numberline {6}Performance Evaluation}{27}{}%
-\contentsline {chapter}{References}{28}{}%
-\contentsline {chapter}{\numberline {7}Appendix 附錄}{33}{}%
+\contentsline {subsubsection}{\numberline {3.1.3.1}Units and Yee Lattice}{23}{}%
+\contentsline {subsubsection}{\numberline {3.1.3.2}Leapfrog Scheme and Courant Condition}{27}{}%
+\contentsline {subsubsection}{\numberline {3.1.3.3}Subpixel Smoothing}{28}{}%
+\contentsline {subsubsection}{\numberline {3.1.3.4}Perfectly Matched Layer, PML}{28}{}%
+\contentsline {subsubsection}{\numberline {3.1.3.5}Discrete Fourier Transform (DFT) and Mode Expansion}{28}{}%
+\contentsline {chapter}{\numberline {4}Data Fusion Algorithm}{29}{}%
+\contentsline {section}{\numberline {4.1}Data Preprocessing}{29}{}%
+\contentsline {subsection}{\numberline {4.1.1}2D LiDAR Data}{30}{}%
+\contentsline {chapter}{\numberline {5}Conclusions}{31}{}%
+\contentsline {chapter}{\numberline {6}Performance Evaluation}{32}{}%
+\contentsline {chapter}{References}{33}{}%
+\contentsline {chapter}{\numberline {7}Appendix 附錄}{38}{}%
 \contentsfinish 
